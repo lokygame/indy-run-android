@@ -29,7 +29,7 @@ jobs:
       run: bash ./gradlew assembleNormalRecord${{ matrix.build_type }}
     - name: Build Release-specific Binaries
       if: ${{ matrix.build_type == 'Release' }}
-      run: bash ./gradlew bundleNormalNoRecordRelease bundleEmbedRecordRelease bundleEmbedNoRecordRelease
+      run: bash ./gradlew bundleNormalNoRecordRelease bundleEmbedRecordRelease bundleEmbedNoRecordRelease assembleEmbedNoRecordDebug
     - name: Artifact (Normal debug APK)
       if: ${{ matrix.build_type == 'Debug' }}
       uses: actions/upload-artifact@v4
@@ -42,6 +42,17 @@ jobs:
       with:
         name: love-android.apk
         path: app/build/outputs/apk/normalRecord/release/app-normal-record-release-unsigned.apk
+          - name: Artifact (Embed debug APK)
+        if: ${{ matrix.build_type == 'Release' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: indy-run-android.apk
+          path: app/build/outputs/apk/embedNoRecord/debug/app-embed-noRecord-debug.apk      - name: Artifact (Embed debug APK)
+        if: ${{ matrix.build_type == 'Release' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: indy-run-android.apk
+          path: app/build/outputs/apk/embedNoRecord/debug/app-embed-noRecord-debug.apk
     - name: Artifact (Normal AAB w/o recording)
       if: ${{ matrix.build_type == 'Release' }}
       uses: actions/upload-artifact@v4
