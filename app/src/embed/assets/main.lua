@@ -1,3 +1,4 @@
+-- Build Android RG Vita
 io.stdout:setvbuf('no')
 love.graphics.setDefaultFilter("nearest")
 if arg[#arg] == "-debug" then require("mobdebug").start() end
